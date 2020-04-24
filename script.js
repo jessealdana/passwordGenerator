@@ -7,64 +7,101 @@ var generateBtn = document.querySelector("#generate");
   var Numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
   var Symbols = ["!", ",", "#", "$", "%", "&", "(", "')'", "*", "+", ",", "-", "<", ">", "?", "^", "'/'", "'\'", "'{'", "'}'", "+", "="];
   
-  var password = '';
 
   //create prompt and confirms for user input
+  var passwordLength = prompt("How many characters do you want to use?  Please choose a number between 8 and 128.");
 
-  var passwordLength = prompt("How many characters do you want to use?");
-  var confirmUppercase = confirm("Do you want to use uppercase letters?");
-  var confirmLowercase = confirm("Do you want to use lowercase letters?");
-  var confirmNumbers = confirm("Do you want to use numbers?");
-  var confirmSymbols = confirm("Do you want to use symbols?");
+  //an empty array for the new character set made up from all the sets chosen by the user
+  var password = [];
 
-function generatePassword() {
-  if (confirmUppercase) {
-    generatePassword.push(Uppercase)
- //   alert("You chose uppercase letters.")
+//a function that will chain four booleans to fill the previously empty "password array" 
+
+ function generatePasswordSet() {
+    upperCase()
+    lowerCase()
+    numbers()
+    symbols()
   }
 
-  if (confirmLowercase) {
-    generatePassword.push(Lowercase)
-  //  alert("You chose lowercase letters.")
+  //four functions that will nest inside the previous function
+ function upperCase() {
+    var confirmUppercase = confirm("Do you want to use uppercase letters?");
+    if (confirmUppercase === true) {
+      password.push(Uppercase)
+        alert("You chose uppercase letters.")
+        console.log(password)
+      } else {
+        console.log("no upper letters")
+      }
   }
 
-  if (confirmNumbers) {
-    generatePassword.push(Numbers)
-  //  alert("You chose numbers.")
+ function lowerCase() {
+    var confirmLowercase = confirm("Do you want to use lowercase letters?");
+    if (confirmLowercase === true) {
+      password.push(Lowercase)
+        alert("You chose lowercase letters.")
+        
+      } else {
+        console.log("no lower letters")
+      }
   }
 
-  if (confirmSymbols) {
-    generatePassword.push(Symbols)
-  //  alert("You chose symbols.")
+ function numbers() {
+    var confirmNumbers = confirm("Do you want to use numbers?");
+    if (confirmNumbers === true) {
+      password.push(numbers)
+        alert("You chose numbers.")
+        
+      } else {
+        console.log("no numbers")
+      }
   }
-}
 
-/*--I tried to create an array of all characters and symbols in the generatePassword index.
-    Right now it is returning the correct number of characters but it seems to be returning 
-    the index position rather than the character.---*/
-    
-for (var i = 0; i < passwordLength; i++) {
-  //if (array [i] == value)
-  //return i;
-  var num = Math.floor(Math.random() * 10) + 1;
-  console.log(num);
-}
+  function symbols() {
+    var confirmSymbols = confirm("Do you want to use Symbols?");
+    if (confirmSymbols === true) {
+      password.push(symbols)
+        alert("You chose symbols.")
+          
+      } else {
+          console.log("no symbols")
+      }
+  }
+ 
+  /*the generate password function combined the arrays but returned them as a matrix.  The 
+    following function resets the matrix into a one dimensional array that can be passed on*/ 
+  function OneDArr(arr){
+    for (var i = 0; i < arr.length; i++) {
+      password = password.concat(arr[i])
+      console.log(password);
+    }
+  }
+//
+  function draftPassword(arr) {
+    for (var i = 0; i < passwordLength; i++){
+      var randomCharacterArray = Math.floor(Math.random() * passwordLength.length);
+      console.log(randomCharacterArray)
+      console.log(password[randomCharacterArray])
+      password.draftPassword[randomCharacterArray];
+    }
+    return password;
+  }
 
+//console.log(Uppercase[2]);
+//console.log(Lowercase[5]);
+//console.log(Numbers[8]);
+//console.log(Symbols[11]);
 
-console.log(Uppercase[2]);
-console.log(Lowercase[5]);
-console.log(Numbers[8]);
-console.log(Symbols[11]);
 
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  var password = generatePasswordSet();
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
 
 }
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+//Add event listener to generate button
+generateBtn.addEventListener("click", writePassword); 
